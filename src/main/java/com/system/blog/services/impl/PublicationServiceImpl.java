@@ -1,8 +1,10 @@
 package com.system.blog.services.impl;
 
 import com.system.blog.dtos.PublicationDto;
+import com.system.blog.entities.Publication;
 import com.system.blog.repositories.PublicationRepository;
 import com.system.blog.services.PublicationService;
+import com.system.blog.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public PublicationDto create(PublicationDto publicationDto) {
-        return null;
+        Publication entity = publicationRepository.save(Mapper.mapFromDto(publicationDto));
+        return Mapper.mapToDto(entity);
     }
 }
