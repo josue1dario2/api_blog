@@ -1,14 +1,14 @@
 package com.system.blog.services;
 
 import com.system.blog.dtos.PublicationDto;
+import com.system.blog.dtos.PublicationResponse;
 
-import java.util.List;
 
 public interface PublicationService {
 
     PublicationDto create(PublicationDto publicationDto);
 
-    List<PublicationDto> getAll(int noPage, int sizePage);
+    PublicationResponse getAll(int noPage, int sizePage,String sortBy,String sortDir);
 
     PublicationDto getById(Long id);
 

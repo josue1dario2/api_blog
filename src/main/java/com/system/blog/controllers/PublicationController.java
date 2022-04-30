@@ -1,13 +1,14 @@
 package com.system.blog.controllers;
 
 import com.system.blog.dtos.PublicationDto;
+import com.system.blog.dtos.PublicationResponse;
 import com.system.blog.services.impl.PublicationServiceImpl;
+import com.system.blog.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -18,11 +19,13 @@ public class PublicationController {
     private PublicationServiceImpl publicationService;
 
     @GetMapping
-    public List<PublicationDto> getAllPublications(
-            @RequestParam(value = "pageNo",defaultValue = "0",required = false) int numPage,
-            @RequestParam(value = "pageSize",defaultValue = "10",required = false) int sizePage
+    public PublicationResponse getAllPublications(
+            @RequestParam(value = "pageNo",defaultValue = AppConstants.DEFAULT_NUMBER_OF_PAGES,required = false) int numPage,
+            @RequestParam(value = "pageSize",defaultValue = AppConstants.DEFAULT_PAGE_SIZE,required = false) int sizePage,
+            @RequestParam(value = "sortBy",defaultValue = AppConstants.SORT_BY_DEFAULT,required = false) String sortBy,
+            @RequestParam(value = "sortDir",defaultValue = AppConstants.ORDER_DEFAULT_ADDRESS,required = false) String sortDir
             ){
-        return publicationService.getAll();
+        return publicationService.getAll(numPage,sizePage,sortBy,sortDir);
     }
 
     @GetMapping("/{id}")
