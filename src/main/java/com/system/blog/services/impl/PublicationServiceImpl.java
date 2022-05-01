@@ -40,8 +40,9 @@ public class PublicationServiceImpl implements PublicationService {
         Page<Publication> publicationsPage = publicationRepository.findAll(pageable);
         List<Publication> publications = publicationsPage.getContent();
         List<PublicationDto> content =  publications
-                .stream().map(publication -> Mapper.mapToDto(publication))
+                .stream().map(Mapper::mapToDto)
                 .collect(Collectors.toList());
+        //.stream().map(publication -> Mapper.mapToDto(publication))
 
         PublicationResponse publicationResponse = new PublicationResponse();
         publicationResponse.setContent(content);
