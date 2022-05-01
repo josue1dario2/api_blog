@@ -1,5 +1,6 @@
 package com.system.blog.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Comment {
     private String email;
     private String name;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publication_id",nullable = false)
     private Publication publication;

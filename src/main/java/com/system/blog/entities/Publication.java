@@ -1,5 +1,6 @@
 package com.system.blog.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +26,8 @@ public class Publication {
     private String description;
     @Column(name = "content",nullable = false)
     private String content;
+
+    @JsonBackReference
     @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 

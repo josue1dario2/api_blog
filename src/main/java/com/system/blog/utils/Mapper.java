@@ -7,12 +7,15 @@ import com.system.blog.entities.Publication;
 
 public class Mapper {
 
+    private Mapper(){}
+
     public static PublicationDto mapToDto(Publication entity){
         return PublicationDto.builder()
                .id(entity.getId())
                .title(entity.getTitle())
                .description(entity.getDescription())
                .content(entity.getContent())
+                .comments(entity.getComments())
                .build();
     }
     public static Publication mapFromDto(PublicationDto dto){

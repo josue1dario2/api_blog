@@ -1,8 +1,11 @@
 package com.system.blog.dtos;
 
+import com.system.blog.entities.Comment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,4 +16,5 @@ public class PublicationDto {
     private String title;
     private String description;
     private String content;
+    private Set<Comment> comments;
 }
