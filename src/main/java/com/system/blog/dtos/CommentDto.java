@@ -1,9 +1,7 @@
 package com.system.blog.dtos;
 
-import com.system.blog.entities.Publication;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
