@@ -1,5 +1,11 @@
 package com.system.blog.utils;
 
+import com.system.blog.entities.Comment;
+import com.system.blog.entities.Publication;
+import com.system.blog.exceptions.ResourceNotFoundException;
+import com.system.blog.repositories.CommentRepository;
+import com.system.blog.repositories.PublicationRepository;
+
 public class AppConstants {
 
     private AppConstants(){
@@ -13,5 +19,16 @@ public class AppConstants {
     public static final String ID = "id";
     public static final String DO_NOT_MATCH = "The comment does not belong to the publication";
     public static final String COMMENT = "comment";
+
+    //Method const
+
+    public static Publication findyByIdPublication(Long fieldValue, PublicationRepository r, String resourceName,String fieldName){
+        return r.findById(fieldValue)
+                .orElseThrow(()-> new ResourceNotFoundException(resourceName,fieldName,fieldValue));
+    }
+    public static Comment findyByIdComment(Long fieldValue, CommentRepository r, String resourceName, String fieldName){
+        return r.findById(fieldValue)
+                .orElseThrow(()-> new ResourceNotFoundException(resourceName,fieldName,fieldValue));
+    }
 
 }

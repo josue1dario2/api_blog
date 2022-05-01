@@ -44,11 +44,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto getCommentById(Long publicationId,Long commentId) {
-        Publication publication = publicationRepository.findById(publicationId)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
+        Publication publication = AppConstants
+                .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
-        Comment comment = commentRepository.findById(commentId)
-               .orElseThrow(()-> new ResourceNotFoundException(AppConstants.COMMENT,AppConstants.ID,commentId));
+        Comment comment = AppConstants
+                .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
 
         if(!comment.getPublication().getId().equals(publication.getId())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
@@ -58,11 +58,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto updateComment(Long publicationId,Long commentId, CommentDto dto) {
-        Publication publication = publicationRepository.findById(publicationId)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
+        Publication publication = AppConstants
+                .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.COMMENT,AppConstants.ID,commentId));
+        Comment comment = AppConstants
+                .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
+
 
         if(!comment.getPublication().getId().equals(publication.getId())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
@@ -76,11 +77,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteComment(Long publicationId, Long commentId) {
-        Publication publication = publicationRepository.findById(publicationId)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
+        Publication publication = AppConstants
+                .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.COMMENT,AppConstants.ID,commentId));
+        Comment comment = AppConstants
+                .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
+
 
         if(!comment.getPublication().getId().equals(publication.getId())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);

@@ -3,7 +3,6 @@ package com.system.blog.services.impl;
 import com.system.blog.dtos.PublicationDto;
 import com.system.blog.dtos.PublicationResponse;
 import com.system.blog.entities.Publication;
-import com.system.blog.exceptions.ResourceNotFoundException;
 import com.system.blog.repositories.PublicationRepository;
 import com.system.blog.services.PublicationService;
 import com.system.blog.utils.AppConstants;
@@ -42,29 +41,20 @@ public class PublicationServiceImpl implements PublicationService {
         List<PublicationDto> content =  publications
                 .stream().map(Mapper::mapToDto)
                 .collect(Collectors.toList());
-        //.stream().map(publication -> Mapper.mapToDto(publication))
 
-        PublicationResponse publicationResponse = new PublicationResponse();
-        publicationResponse.setContent(content);
-        publicationResponse.setNumPage(publicationsPage.getNumber());
-        publicationResponse.setSizePage(publicationsPage.getSize());
-        publicationResponse.setTotalElements(publicationsPage.getTotalElements());
-        publicationResponse.setTotalPages(publicationsPage.getTotalPages());
-        publicationResponse.setLast(publicationsPage.isLast());
-        return publicationResponse;
+        return Mapper.mapToDto(content,publicationsPage);
     }
 
     @Override
     public PublicationDto getById(Long id) {
-        Publication publication = publicationRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,id));
-        return Mapper.mapToDto(publication);
+        return Mapper.mapToDto(AppConstants
+                .findyByIdPublication(id,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID));
     }
 
     @Override
     public PublicationDto update(PublicationDto dto, Long id) {
-        Publication publication = publicationRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,id));
+        Publication publication = AppConstants
+                .findyByIdPublication(id,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
         publication.setTitle(dto.getTitle());
         publication.setDescription(dto.getDescription());
@@ -76,8 +66,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public void delete(Long id) {
-        Publication publication = publicationRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,id));
-        publicationRepository.delete(publication);
+        publicationRepository.delete(AppConstants
+                .findyByIdPublication(id,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID));
     }
 }

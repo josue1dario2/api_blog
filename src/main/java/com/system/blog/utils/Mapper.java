@@ -2,8 +2,12 @@ package com.system.blog.utils;
 
 import com.system.blog.dtos.CommentDto;
 import com.system.blog.dtos.PublicationDto;
+import com.system.blog.dtos.PublicationResponse;
 import com.system.blog.entities.Comment;
 import com.system.blog.entities.Publication;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public class Mapper {
 
@@ -39,6 +43,16 @@ public class Mapper {
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .body(dto.getBody())
+                .build();
+    }
+    public static PublicationResponse mapToDto(List<PublicationDto> content, Page<Publication> publicationsPage){
+        return PublicationResponse.builder()
+                .content(content)
+                .numPage(publicationsPage.getNumber())
+                .sizePage(publicationsPage.getSize())
+                .totalElements(publicationsPage.getTotalElements())
+                .totalPages(publicationsPage.getTotalPages())
+                .last(publicationsPage.isLast())
                 .build();
     }
 
