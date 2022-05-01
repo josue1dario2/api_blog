@@ -55,4 +55,22 @@ public class CommentServiceImpl implements CommentService {
         }
         return Mapper.mapToDto(comment);
     }
+
+    @Override
+    public CommentDto updateComment(Long publicationId,Long commentId, CommentDto dto) {
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Comment","id",commentId));
+
+        if(!comment.getPublication().getId().equals(publication.getId())){
+            throw new BlogAppException(HttpStatus.BAD_REQUEST,"The comment does not belong to the publication");
+        }
+        comment.setName(dto.getName());
+        comment.setEmail(dto.getEmail());
+        comment.setBody(dto.getBody());
+        Comment updateComment = commentRepository.save(comment);
+        return Mapper.mapToDto(updateComment);
+    }
 }
