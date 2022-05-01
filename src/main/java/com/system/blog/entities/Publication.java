@@ -3,6 +3,8 @@ package com.system.blog.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,5 +25,7 @@ public class Publication {
     private String description;
     @Column(name = "content",nullable = false)
     private String content;
+    @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Set<Comment> comments = new HashSet<>();
 
 }
