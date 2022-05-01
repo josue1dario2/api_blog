@@ -48,10 +48,10 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
 
         Comment comment = commentRepository.findById(commentId)
-               .orElseThrow(()-> new ResourceNotFoundException("Comment","id",commentId));
+               .orElseThrow(()-> new ResourceNotFoundException(AppConstants.COMMENT,AppConstants.ID,commentId));
 
         if(!comment.getPublication().getId().equals(publication.getId())){
-            throw new BlogAppException(HttpStatus.BAD_REQUEST,"The comment does not belong to the publication");
+            throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         return Mapper.mapToDto(comment);
     }
@@ -62,10 +62,10 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
 
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new ResourceNotFoundException("Comment","id",commentId));
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.COMMENT,AppConstants.ID,commentId));
 
         if(!comment.getPublication().getId().equals(publication.getId())){
-            throw new BlogAppException(HttpStatus.BAD_REQUEST,"The comment does not belong to the publication");
+            throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         comment.setName(dto.getName());
         comment.setEmail(dto.getEmail());
@@ -80,10 +80,10 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
 
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(()-> new ResourceNotFoundException("Comment","id",commentId));
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.COMMENT,AppConstants.ID,commentId));
 
         if(!comment.getPublication().getId().equals(publication.getId())){
-            throw new BlogAppException(HttpStatus.BAD_REQUEST,"The comment does not belong to the publication");
+            throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         commentRepository.delete(comment);
     }
