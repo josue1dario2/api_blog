@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,17 +29,17 @@ public class CommentController {
     }
 
     @PostMapping("/publications/{publicationId}/comments")
-    public ResponseEntity<CommentDto> saveComment(@PathVariable Long publicationId,@RequestBody CommentDto dto){
+    public ResponseEntity<CommentDto> saveComment(@PathVariable Long publicationId,@Valid  @RequestBody CommentDto dto){
         return new ResponseEntity<>(commentService.createComment(publicationId,dto), HttpStatus.CREATED);
     }
     @PutMapping("/publications/{publicationId}/comments/{id}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long publicationId,@PathVariable Long id,@RequestBody CommentDto dto){
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Long publicationId,@PathVariable Long id,@Valid @RequestBody CommentDto dto){
         return new ResponseEntity<>(commentService.updateComment(publicationId,id,dto),HttpStatus.OK);
     }
     @DeleteMapping("/publications/{publicationId}/comments/{id}")
     public ResponseEntity<String> deleteComment(@PathVariable Long publicationId,@PathVariable Long id){
         commentService.deleteComment(publicationId,id);
-        return new ResponseEntity("Comment deleted successfully",HttpStatus.OK);
+        return ResponseEntity.ok("Comment deleted successfully");
     }
 
 }

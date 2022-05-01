@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -34,12 +36,12 @@ public class PublicationController {
     }
 
     @PostMapping
-    public ResponseEntity<PublicationDto> savePublication(@RequestBody PublicationDto dto){
+    public ResponseEntity<PublicationDto> savePublication(@Valid @RequestBody PublicationDto dto){
         return new ResponseEntity<>(publicationService.create(dto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PublicationDto> updatePublication(@PathVariable Long id,@RequestBody PublicationDto dto){
+    public ResponseEntity<PublicationDto> updatePublication(@PathVariable Long id,@Valid @RequestBody PublicationDto dto){
         return ResponseEntity.ok(publicationService.update(dto,id));
     }
 
