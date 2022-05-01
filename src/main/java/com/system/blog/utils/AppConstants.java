@@ -9,5 +9,7 @@ public class AppConstants {
     public static final String DEFAULT_PAGE_SIZE = "10";
     public static final String SORT_BY_DEFAULT = "id";
     public static final String ORDER_DEFAULT_ADDRESS = "asc";
+    public static final String PUBLICATION = "publication";
+    public static final String ID = "id";
 
 }

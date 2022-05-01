@@ -6,6 +6,7 @@ import com.system.blog.entities.Publication;
 import com.system.blog.exceptions.ResourceNotFoundException;
 import com.system.blog.repositories.PublicationRepository;
 import com.system.blog.services.PublicationService;
+import com.system.blog.utils.AppConstants;
 import com.system.blog.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,9 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class PublicationServiceImpl implements PublicationService {
-
-    private static final String PUBLICATION = "publication";
-    private static final String ID = "id";
 
     @Autowired
     private PublicationRepository publicationRepository;
@@ -58,14 +56,14 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public PublicationDto getById(Long id) {
         Publication publication = publicationRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(PUBLICATION,ID,id));
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,id));
         return Mapper.mapToDto(publication);
     }
 
     @Override
     public PublicationDto update(PublicationDto dto, Long id) {
         Publication publication = publicationRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(PUBLICATION,ID,id));
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,id));
 
         publication.setTitle(dto.getTitle());
         publication.setDescription(dto.getDescription());
@@ -78,7 +76,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public void delete(Long id) {
         Publication publication = publicationRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException(PUBLICATION,ID,id));
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,id));
         publicationRepository.delete(publication);
     }
 }

@@ -1,9 +1,14 @@
 package com.system.blog.services.impl;
 
 import com.system.blog.dtos.CommentDto;
+import com.system.blog.entities.Comment;
+import com.system.blog.entities.Publication;
+import com.system.blog.exceptions.ResourceNotFoundException;
 import com.system.blog.repositories.CommentRepository;
 import com.system.blog.repositories.PublicationRepository;
 import com.system.blog.services.CommentService;
+import com.system.blog.utils.AppConstants;
+import com.system.blog.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +23,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDto create(Long publicationId, CommentDto dto) {
-        return null;
+        Comment comment = Mapper.mapFromDto(dto);
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION, AppConstants.ID,publicationId));
+        comment.setPublication(publication);
+        Comment newComment = commentRepository.save(comment);
+        return Mapper.mapToDto(newComment);
     }
 }
