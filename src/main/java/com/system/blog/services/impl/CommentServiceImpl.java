@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
     private PublicationRepository publicationRepository;
 
     @Override
-    public CommentDto create(Long publicationId, CommentDto dto) {
+    public CommentDto createComment(Long publicationId, CommentDto dto) {
         Comment comment = Mapper.mapFromDto(dto);
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION, AppConstants.ID,publicationId));
@@ -72,5 +72,19 @@ public class CommentServiceImpl implements CommentService {
         comment.setBody(dto.getBody());
         Comment updateComment = commentRepository.save(comment);
         return Mapper.mapToDto(updateComment);
+    }
+
+    @Override
+    public void deleteComment(Long publicationId, Long commentId) {
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION,AppConstants.ID,publicationId));
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Comment","id",commentId));
+
+        if(!comment.getPublication().getId().equals(publication.getId())){
+            throw new BlogAppException(HttpStatus.BAD_REQUEST,"The comment does not belong to the publication");
+        }
+        commentRepository.delete(comment);
     }
 }

@@ -29,11 +29,16 @@ public class CommentController {
 
     @PostMapping("/publications/{publicationId}/comments")
     public ResponseEntity<CommentDto> saveComment(@PathVariable Long publicationId,@RequestBody CommentDto dto){
-        return new ResponseEntity<>(commentService.create(publicationId,dto), HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.createComment(publicationId,dto), HttpStatus.CREATED);
     }
     @PutMapping("/publications/{publicationId}/comments/{id}")
     public ResponseEntity<CommentDto> updateComment(@PathVariable Long publicationId,@PathVariable Long id,@RequestBody CommentDto dto){
         return new ResponseEntity<>(commentService.updateComment(publicationId,id,dto),HttpStatus.OK);
+    }
+    @DeleteMapping("/publications/{publicationId}/comments/{id}")
+    public ResponseEntity<String> deleteComment(@PathVariable Long publicationId,@PathVariable Long id){
+        commentService.deleteComment(publicationId,id);
+        return new ResponseEntity("Comment deleted successfully",HttpStatus.OK);
     }
 
 }
