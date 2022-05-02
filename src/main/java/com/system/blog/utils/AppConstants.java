@@ -20,6 +20,9 @@ public class AppConstants {
     public static final String DO_NOT_MATCH = "The comment does not belong to the publication";
     public static final String COMMENT = "comment";
 
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
+
     //Method const
 
     public static Publication findyByIdPublication(Long fieldValue, PublicationRepository r, String resourceName,String fieldName){

@@ -4,7 +4,6 @@ import com.system.blog.dtos.CommentDto;
 import com.system.blog.entities.Comment;
 import com.system.blog.entities.Publication;
 import com.system.blog.exceptions.BlogAppException;
-import com.system.blog.exceptions.ResourceNotFoundException;
 import com.system.blog.repositories.CommentRepository;
 import com.system.blog.repositories.PublicationRepository;
 import com.system.blog.services.CommentService;
@@ -29,8 +28,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDto createComment(Long publicationId, CommentDto dto) {
         Comment comment = Mapper.mapFromDto(dto);
-        Publication publication = publicationRepository.findById(publicationId)
-                .orElseThrow(()-> new ResourceNotFoundException(AppConstants.PUBLICATION, AppConstants.ID,publicationId));
+        Publication publication = AppConstants
+                .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
         comment.setPublication(publication);
         Comment newComment = commentRepository.save(comment);
         return Mapper.mapToDto(newComment);
