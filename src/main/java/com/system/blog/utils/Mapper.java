@@ -3,10 +3,15 @@ package com.system.blog.utils;
 import com.system.blog.dtos.CommentDto;
 import com.system.blog.dtos.PublicationDto;
 import com.system.blog.dtos.PublicationResponse;
+import com.system.blog.dtos.RegisterDto;
 import com.system.blog.entities.Comment;
 import com.system.blog.entities.Publication;
+import com.system.blog.entities.Role;
+import com.system.blog.entities.User;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Mapper {
@@ -53,6 +58,15 @@ public class Mapper {
                 .totalElements(publicationsPage.getTotalElements())
                 .totalPages(publicationsPage.getTotalPages())
                 .last(publicationsPage.isLast())
+                .build();
+    }
+    public static User mapFromDto(RegisterDto dto, PasswordEncoder passwordEncoder, Role roles){
+        return User.builder()
+                .name(dto.getName())
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .roles(Collections.singleton(roles))
                 .build();
     }
 

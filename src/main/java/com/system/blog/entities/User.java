@@ -1,7 +1,6 @@
 package com.system.blog.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,6 +9,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users",uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})
         ,@UniqueConstraint(columnNames = {"email"})})
 public class User {
