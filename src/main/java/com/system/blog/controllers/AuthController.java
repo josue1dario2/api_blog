@@ -6,6 +6,8 @@ import com.system.blog.entities.Role;
 import com.system.blog.entities.User;
 import com.system.blog.repositories.RoleRepository;
 import com.system.blog.repositories.UserRepository;
+import com.system.blog.security.JwtAuthResponseDto;
+import com.system.blog.security.JwtTokenProvider;
 import com.system.blog.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,13 +38,20 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto){
+    public ResponseEntity<JwtAuthResponseDto> authenticateUser(@RequestBody LoginDto loginDto){
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(),loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("You have successfully login", HttpStatus.OK);
+
+        // We get the jwtTokenProvider
+        String token = jwtTokenProvider.generateAccessToken(authentication);
+
+        return ResponseEntity.ok(new JwtAuthResponseDto(token));
     }
     @PostMapping("/singup")
     public ResponseEntity<?> registerUser(@RequestBody RegisterDto dto){
