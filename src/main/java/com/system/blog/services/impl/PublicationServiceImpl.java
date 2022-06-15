@@ -20,8 +20,12 @@ import java.util.stream.Collectors;
 @Service
 public class PublicationServiceImpl implements PublicationService {
 
+    private final PublicationRepository publicationRepository;
+    
     @Autowired
-    private PublicationRepository publicationRepository;
+    public PublicationServiceImpl(PublicationRepository publicationRepository){
+        this.publicationRepository = publicationRepository;
+    }
 
     @Override
     public PublicationDto create(PublicationDto publicationDto) {
