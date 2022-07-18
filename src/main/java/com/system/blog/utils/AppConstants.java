@@ -25,11 +25,11 @@ public class AppConstants {
 
     //Method const
 
-    public static Publication findyByIdPublication(Long fieldValue, PublicationRepository r, String resourceName,String fieldName){
+    public static Publication findyByIdPublication(Integer fieldValue, PublicationRepository r, String resourceName,String fieldName){
         return r.findById(fieldValue)
                 .orElseThrow(()-> new ResourceNotFoundException(resourceName,fieldName,fieldValue));
     }
-    public static Comment findyByIdComment(Long fieldValue, CommentRepository r, String resourceName, String fieldName){
+    public static Comment findyByIdComment(Integer fieldValue, CommentRepository r, String resourceName, String fieldName){
         return r.findById(fieldValue)
                 .orElseThrow(()-> new ResourceNotFoundException(resourceName,fieldName,fieldValue));
     }

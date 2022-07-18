@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = AppConstants
                 .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
 
-        if(!comment.getPublication().getId().equals(publication.getId())){
+        if(!comment.getPublication().getIdPublication().equals(publication.getIdPublication())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         return Mapper.mapToDto(comment);
@@ -66,8 +66,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = AppConstants
                 .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
 
-
-        if(!comment.getPublication().getId().equals(publication.getId())){
+        if(!comment.getPublication().getIdPublication().equals(publication.getIdPublication())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         comment.setName(dto.getName());
@@ -85,8 +84,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = AppConstants
                 .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
 
-
-        if(!comment.getPublication().getId().equals(publication.getId())){
+        if(!comment.getPublication().getIdPublication().equals(publication.getIdPublication())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         commentRepository.delete(comment);

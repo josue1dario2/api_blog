@@ -34,7 +34,7 @@ public class PublicationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PublicationDto> getPublicationById(@PathVariable Long id){
+    public ResponseEntity<PublicationDto> getPublicationById(@PathVariable Integer id){
         return ResponseEntity.ok(publicationService.getById(id));
     }
 
@@ -44,12 +44,12 @@ public class PublicationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PublicationDto> updatePublication(@PathVariable Long id,@Valid @RequestBody PublicationDto dto){
+    public ResponseEntity<PublicationDto> updatePublication(@PathVariable Integer id,@Valid @RequestBody PublicationDto dto){
         return ResponseEntity.ok(publicationService.update(dto,id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePublication(@PathVariable Long id){
+    public ResponseEntity<String> deletePublication(@PathVariable Integer id){
         publicationService.delete(id);
         return ResponseEntity.ok("Publication deleted successfully");
     }
