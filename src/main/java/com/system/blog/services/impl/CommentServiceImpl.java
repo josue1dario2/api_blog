@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto createComment(Long publicationId, CommentDto dto) {
+    public CommentDto createComment(Integer publicationId, CommentDto dto) {
         Comment comment = Mapper.mapFromDto(dto);
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
@@ -39,13 +39,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> getCommentByPublicationId(Long publicationId) {
+    public List<CommentDto> getCommentByPublicationId(Integer publicationId) {
         List<Comment> comments = commentRepository.findByPublicationId(publicationId);
         return comments.stream().map(Mapper::mapToDto).collect(Collectors.toList());
     }
 
     @Override
-    public CommentDto getCommentById(Long publicationId,Long commentId) {
+    public CommentDto getCommentById(Integer publicationId,Integer commentId) {
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto updateComment(Long publicationId,Long commentId, CommentDto dto) {
+    public CommentDto updateComment(Integer publicationId,Integer commentId, CommentDto dto) {
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
@@ -78,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteComment(Long publicationId, Long commentId) {
+    public void deleteComment(Integer publicationId, Integer commentId) {
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
