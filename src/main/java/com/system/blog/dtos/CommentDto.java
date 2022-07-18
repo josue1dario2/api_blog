@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Builder
 public class CommentDto {
 
-    private Long id;
+    private Integer id;
     @NotEmpty
     @Size(min = 10, message = "The comment body must have at least 10 characters")
     private String body;

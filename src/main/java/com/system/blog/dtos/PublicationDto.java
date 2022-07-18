@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder
 public class PublicationDto {
 
-    private Long id;
+    private Integer id;
     @NotEmpty
     @Size(min = 2, message = "The title must have at least 2 characters")
     private String title;
