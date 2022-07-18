@@ -15,8 +15,11 @@ import java.util.List;
 @RequestMapping(path = "/api/")
 public class CommentController {
 
+    private final CommentServiceImpl commentService;
     @Autowired
-    private CommentServiceImpl commentService;
+    public CommentController (CommentServiceImpl commentService){
+        this.commentService = commentService;
+    }
 
     @GetMapping("/publications/{publicationId}/comments")
     public List<CommentDto> listCommentsByPublicationId(@PathVariable Long publicationId){
