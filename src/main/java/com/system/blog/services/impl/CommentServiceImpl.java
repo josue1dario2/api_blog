@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDto> getCommentByPublicationId(Integer publicationId) {
-        List<Comment> comments = commentRepository.findByPublicationId(publicationId);
+        List<Comment> comments = commentRepository.findByIdComment(publicationId);
         return comments.stream().map(Mapper::mapToDto).collect(Collectors.toList());
     }
 
