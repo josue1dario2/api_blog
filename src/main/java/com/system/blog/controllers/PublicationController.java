@@ -17,8 +17,11 @@ import javax.validation.Valid;
 @RequestMapping(path = "/api/publications")
 public class PublicationController {
 
+    private final PublicationServiceImpl publicationService;
     @Autowired
-    private PublicationServiceImpl publicationService;
+    public PublicationController(PublicationServiceImpl publicationService){
+        this.publicationService = publicationService;
+    }
 
     @GetMapping
     public PublicationResponse getAllPublications(
