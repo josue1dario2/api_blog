@@ -50,13 +50,13 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public PublicationDto getById(Long id) {
+    public PublicationDto getById(Integer id) {
         return Mapper.mapToDto(AppConstants
                 .findyByIdPublication(id,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID));
     }
 
     @Override
-    public PublicationDto update(PublicationDto dto, Long id) {
+    public PublicationDto update(PublicationDto dto, Integer id) {
         Publication publication = AppConstants
                 .findyByIdPublication(id,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
@@ -69,7 +69,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         publicationRepository.delete(AppConstants
                 .findyByIdPublication(id,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID));
     }

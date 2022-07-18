@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto createComment(Long publicationId, CommentDto dto) {
+    public CommentDto createComment(Integer publicationId, CommentDto dto) {
         Comment comment = Mapper.mapFromDto(dto);
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
@@ -39,35 +39,34 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> getCommentByPublicationId(Long publicationId) {
-        List<Comment> comments = commentRepository.findByPublicationId(publicationId);
+    public List<CommentDto> getCommentByPublicationId(Integer publicationId) {
+        List<Comment> comments = commentRepository.findByIdComment(publicationId);
         return comments.stream().map(Mapper::mapToDto).collect(Collectors.toList());
     }
 
     @Override
-    public CommentDto getCommentById(Long publicationId,Long commentId) {
+    public CommentDto getCommentById(Integer publicationId,Integer commentId) {
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
         Comment comment = AppConstants
                 .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
 
-        if(!comment.getPublication().getId().equals(publication.getId())){
+        if(!comment.getPublication().getIdPublication().equals(publication.getIdPublication())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         return Mapper.mapToDto(comment);
     }
 
     @Override
-    public CommentDto updateComment(Long publicationId,Long commentId, CommentDto dto) {
+    public CommentDto updateComment(Integer publicationId,Integer commentId, CommentDto dto) {
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
         Comment comment = AppConstants
                 .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
 
-
-        if(!comment.getPublication().getId().equals(publication.getId())){
+        if(!comment.getPublication().getIdPublication().equals(publication.getIdPublication())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         comment.setName(dto.getName());
@@ -78,15 +77,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteComment(Long publicationId, Long commentId) {
+    public void deleteComment(Integer publicationId, Integer commentId) {
         Publication publication = AppConstants
                 .findyByIdPublication(publicationId,publicationRepository,AppConstants.PUBLICATION,AppConstants.ID);
 
         Comment comment = AppConstants
                 .findyByIdComment(commentId,commentRepository,AppConstants.COMMENT,AppConstants.ID);
 
-
-        if(!comment.getPublication().getId().equals(publication.getId())){
+        if(!comment.getPublication().getIdPublication().equals(publication.getIdPublication())){
             throw new BlogAppException(HttpStatus.BAD_REQUEST,AppConstants.DO_NOT_MATCH);
         }
         commentRepository.delete(comment);
