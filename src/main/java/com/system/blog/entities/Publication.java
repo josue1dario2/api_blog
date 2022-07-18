@@ -18,7 +18,7 @@ public class Publication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer idPublication;
 
     @Column(name = "title",nullable = false)
     private String title;
