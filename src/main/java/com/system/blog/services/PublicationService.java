@@ -10,10 +10,10 @@ public interface PublicationService {
 
     PublicationResponse getAll(int noPage, int sizePage,String sortBy,String sortDir);
 
-    PublicationDto getById(Long id);
+    PublicationDto getById(Integer id);
 
-    PublicationDto update(PublicationDto dto,Long id);
+    PublicationDto update(PublicationDto dto,Integer id);
 
-    void delete(Long id);
+    void delete(Integer id);
 
 }

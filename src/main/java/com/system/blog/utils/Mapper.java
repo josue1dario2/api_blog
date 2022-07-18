@@ -20,7 +20,7 @@ public class Mapper {
 
     public static PublicationDto mapToDto(Publication entity){
         return PublicationDto.builder()
-               .id(entity.getId())
+               .id(entity.getIdPublication())
                .title(entity.getTitle())
                .description(entity.getDescription())
                .content(entity.getContent())
@@ -36,7 +36,7 @@ public class Mapper {
     }
     public static CommentDto mapToDto(Comment entity){
         return CommentDto.builder()
-                .id(entity.getId())
+                .id(entity.getIdComment())
                 .name(entity.getName())
                 .email(entity.getEmail())
                 .body(entity.getBody())
@@ -44,7 +44,7 @@ public class Mapper {
     }
     public static Comment mapFromDto(CommentDto dto){
         return Comment.builder()
-                .id(dto.getId())
+                .idComment(dto.getId())
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .body(dto.getBody())

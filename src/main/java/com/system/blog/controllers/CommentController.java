@@ -22,25 +22,25 @@ public class CommentController {
     }
 
     @GetMapping("/publications/{publicationId}/comments")
-    public List<CommentDto> listCommentsByPublicationId(@PathVariable Long publicationId){
+    public List<CommentDto> listCommentsByPublicationId(@PathVariable Integer publicationId){
         return commentService.getCommentByPublicationId(publicationId);
     }
 
     @GetMapping("/publications/{publicationId}/comments/{id}")
-    public ResponseEntity<CommentDto> getCommentById(@PathVariable Long publicationId,@PathVariable Long id){
+    public ResponseEntity<CommentDto> getCommentById(@PathVariable Integer publicationId,@PathVariable Integer id){
         return new ResponseEntity<>(commentService.getCommentById(publicationId,id),HttpStatus.OK);
     }
 
     @PostMapping("/publications/{publicationId}/comments")
-    public ResponseEntity<CommentDto> saveComment(@PathVariable Long publicationId,@Valid  @RequestBody CommentDto dto){
+    public ResponseEntity<CommentDto> saveComment(@PathVariable Integer publicationId,@Valid  @RequestBody CommentDto dto){
         return new ResponseEntity<>(commentService.createComment(publicationId,dto), HttpStatus.CREATED);
     }
     @PutMapping("/publications/{publicationId}/comments/{id}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long publicationId,@PathVariable Long id,@Valid @RequestBody CommentDto dto){
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Integer publicationId,@PathVariable Integer id,@Valid @RequestBody CommentDto dto){
         return new ResponseEntity<>(commentService.updateComment(publicationId,id,dto),HttpStatus.OK);
     }
     @DeleteMapping("/publications/{publicationId}/comments/{id}")
-    public ResponseEntity<String> deleteComment(@PathVariable Long publicationId,@PathVariable Long id){
+    public ResponseEntity<String> deleteComment(@PathVariable Integer publicationId,@PathVariable Integer id){
         commentService.deleteComment(publicationId,id);
         return ResponseEntity.ok("Comment deleted successfully");
     }

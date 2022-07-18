@@ -18,7 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer idUser;
 
     private String name;
     private String username;
@@ -26,8 +26,8 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(name = "users_roles",joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
+    @JoinTable(name = "users_roles",joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "idUser"),
+    inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "idRole"))
     private Set<Role> roles = new HashSet<>();
 
 }
